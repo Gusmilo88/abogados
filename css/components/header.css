@@ -1,0 +1,217 @@
+.header {
+    background-color: var(--primary-blue);
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000;
+    height: 80px;
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+}
+
+.logo img {
+    height: 50px;
+}
+
+.nav-desktop {
+    height: 100%;
+}
+
+.nav-list {
+    display: flex;
+    gap: 2rem;
+    height: 100%;
+    align-items: center;
+}
+
+.nav-list > li {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.nav-list > li > a {
+    color: var(--text-white);
+    font-weight: 500;
+    padding: 0 5px 5px 5px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    text-decoration: none;
+}
+
+/* Subrayado solo en desktop */
+@media (min-width: 1025px) {
+    .nav-list > li > a::after {
+        content: '';
+        position: absolute;
+        width: 0;
+        height: 2px;
+        bottom: 0;
+        left: 0;
+        background-color: var(--text-white);
+        transition: width 0.3s ease-in-out;
+    }
+
+    .nav-list > li > a:hover::after {
+        width: 100%;
+    }
+
+    .dropdown:hover .submenu {
+        display: block;
+    }
+}
+
+/* Menú desktop */
+.dropdown > a::after {
+    content: '';
+    width: 10px;
+    height: 10px;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-size: contain;
+    background-repeat: no-repeat;
+    transition: transform 0.3s ease;
+    margin-left: 5px;
+}
+
+.submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--background-white);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    min-width: 250px;
+    border-radius: 4px;
+    padding: 0.5rem 0;
+}
+
+.submenu a {
+    display: block;
+    padding: 0.8rem 1rem;
+    color: var(--text-color);
+    transition: background-color 0.3s;
+    white-space: nowrap;
+    text-decoration: none;
+}
+
+.submenu a:hover {
+    background-color: var(--hover-color);
+}
+
+/* Botón del menú mobile */
+.menu-button {
+    display: none;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.menu-button .bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px 0;
+    background-color: white;
+    transition: 0.3s;
+}
+
+/* Estilos del menú mobile */
+.mobile-menu {
+    display: none;
+    position: fixed;
+    top: 80px;
+    right: 0;
+    width: 100%;
+    height: calc(100vh - 80px);
+    background-color: white;
+    padding: 2rem;
+    overflow-y: auto;
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+}
+
+.mobile-menu.active {
+    display: block;
+    transform: translateX(0);
+}
+
+.mobile-menu .nav-list {
+    flex-direction: column;
+    align-items: flex-end;
+    height: auto;
+    gap: 1.5rem;
+}
+
+.mobile-menu .nav-list > li {
+    width: 100%;
+    text-align: right;
+}
+
+.mobile-menu .nav-list > li > a {
+    color: var(--text-color);
+    font-size: 1.1rem;
+    padding: 0.5rem 0;
+    justify-content: flex-end;
+}
+
+.mobile-menu .submenu {
+    position: static;
+    transform: none;
+    box-shadow: none;
+    display: none;
+    padding: 1rem 0;
+    margin-top: 0.5rem;
+    background: transparent;
+    text-align: right;
+    border-left: 2px solid var(--primary-blue);
+}
+
+.mobile-menu .submenu.active {
+    display: block;
+}
+
+.mobile-menu .dropdown > a::after {
+    transform: rotate(-90deg);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+}
+
+.mobile-menu .dropdown.active > a::after {
+    transform: rotate(0);
+}
+
+/* Media Queries */
+@media screen and (max-width: 1024px) {
+    .nav-desktop {
+        display: none;
+    }
+
+    .menu-button {
+        display: block;
+        margin-left: auto;
+    }
+
+    .menu-button.active .bar:nth-child(1) {
+        transform: translateY(8px) rotate(45deg);
+    }
+
+    .menu-button.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+
+    .menu-button.active .bar:nth-child(3) {
+        transform: translateY(-8px) rotate(-45deg);
+    }
+}
